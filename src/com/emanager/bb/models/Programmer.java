@@ -1,6 +1,7 @@
 package com.emanager.bb.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Programmer extends BaseEmployee{
@@ -12,7 +13,7 @@ public class Programmer extends BaseEmployee{
     public Programmer(int age, String name, String telephone, String email, LocalDate startedAt, double salary, Gender gender, String activeProject, List<ProgramLanguages> programLanguages, List<Programmer> teamColleagues) {
         super(age, name, telephone, email, startedAt, salary, gender);
         this.activeProject = activeProject;
-        this.programLanguages = programLanguages;
+        this.programLanguages = new ArrayList<>();
         this.teamColleagues = teamColleagues;
     }
 
