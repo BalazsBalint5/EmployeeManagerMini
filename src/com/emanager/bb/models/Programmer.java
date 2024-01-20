@@ -11,7 +11,7 @@ public class Programmer extends BaseEmployee{
     private List<Programmer> teamColleagues;
 
     public Programmer(int age, String name, String telephone, String email, LocalDate startedAt, double salary, Gender gender, String activeProject, List<ProgramLanguages> programLanguages, List<Programmer> teamColleagues) {
-        super(age, name, telephone, email, startedAt, salary, gender);
+        super(name, age, telephone, email, startedAt, salary, gender);
         this.activeProject = activeProject;
         this.programLanguages = new ArrayList<>();
         this.teamColleagues = teamColleagues;

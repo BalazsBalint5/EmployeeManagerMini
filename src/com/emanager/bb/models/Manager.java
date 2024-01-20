@@ -3,14 +3,15 @@ package com.emanager.bb.models;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class Manager extends BaseEmployee{
 
     private List<BaseEmployee> employees;
     private List<Meeting> futureMeetings;
 
-    public Manager(int age, String name, String telephone, String email, LocalDate startedAt, double salary, Gender gender, List<BaseEmployee> employees, List<LocalDate> futureMeetings) {
-        super(age, name, telephone, email, startedAt, salary, gender);
+    public Manager(String name, int age, String telephone, String email, LocalDate startedAt, double salary, Gender gender) {
+        super(name, age, telephone, email, startedAt, salary, gender);
         this.employees = new ArrayList<>();
         this.futureMeetings = new ArrayList<>();
     }
@@ -24,18 +25,48 @@ public class Manager extends BaseEmployee{
     }
 
     public void addEmployee(BaseEmployee employee) {
-        employees.add(employee);
+        try {
+            employees.add(employee);
+            System.out.println("Employee: " + '(' + employee.getName() + ')' + " successfully added to the employee list");
+        } catch (NullPointerException e) {
+            System.out.println("Employee can't be null. Please try again with valid data!");
+        }
     }
 
     public void removeEmployee(BaseEmployee employee) {
-        employees.remove(employee);
+        try {
+            employees.remove(employee);
+            System.out.println("Employee: " + '(' + employee.getName() + ')' + " successfully removed from the employee list");
+        } catch (NullPointerException e) {
+            System.out.println("Employee can't be null. Please try again with valid data!");
+        } catch (NoSuchElementException e) {
+            System.out.println("Couldn't removed the employee: " + '(' + employee.getName() + ')' + " Couldn't found such meeting");
+        }
     }
 
-    @Override
+    public void addMeeting(Meeting meeting) {
+        if(meeting != null) {
+            futureMeetings.add(meeting);
+            System.out.println("Meeting successfully added to the list!");
+        } else {
+            System.out.println("Meeting can't be null. Please try again with valid data!");
+        }
+    }
+
+    public void removeMeeting(Meeting meeting) {
+        try {
+            futureMeetings.remove(meeting);
+            System.out.println("Meeting was removed successfully!");
+        } catch (NullPointerException e) {
+            System.out.println("Meeting can't be null. Please try again with valid data!");
+        } catch (NoSuchElementException e) {
+            System.out.println("Couldn't removed the meeting. Couldn't found such meeting");
+        }
+    }
+
     public String toString() {
-        return "Manager{" +
+        return super.toString() + " Manager{" +
                 "employees=" + employees +
-                ", futureMeetings=" + futureMeetings +
                 '}';
     }
 }
