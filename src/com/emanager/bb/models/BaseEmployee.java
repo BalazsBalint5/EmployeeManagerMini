@@ -5,13 +5,13 @@ import java.time.LocalDate;
 public class BaseEmployee {
 
     private Integer id;
-    private String name;
-    private int age;
-    private String telephone;
-    private String email;
-    private LocalDate startedAt;
-    private double salary;
-    private Gender gender;
+    private final String name;
+    private final int age;
+    private final String telephone;
+    private final String email;
+    private final LocalDate startedAt;
+    private final double salary;
+    private final Gender gender;
 
     public BaseEmployee(String name, int age, String telephone, String email, LocalDate startedAt, double salary, Gender gender) {
         this.age = age;

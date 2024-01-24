@@ -6,15 +6,15 @@ import java.util.NoSuchElementException;
 
 public class Programmer extends BaseEmployee{
 
-    private String activeProject;
-    private HashSet<ProgramLanguages> programLanguages;
-    private HashSet<Programmer> teamColleagues;
+    private final String activeProject;
+    private final HashSet<ProgramLanguages> programLanguages;
+    private final HashSet<Programmer> teamProgrammers;
 
     public Programmer(String name, int age, String telephone, String email, LocalDate startedAt, double salary, Gender gender, String activeProject) {
         super(name, age, telephone, email, startedAt, salary, gender);
         this.activeProject = activeProject;
         this.programLanguages = new HashSet<>();
-        this.teamColleagues = new HashSet<>();
+        this.teamProgrammers = new HashSet<>();
     }
 
     public String getActiveProject() {
@@ -39,12 +39,29 @@ public class Programmer extends BaseEmployee{
         } catch (NoSuchElementException e) {
             System.out.println("There is no such programming language in the list like: " + programLanguage);
         } catch (NullPointerException e) {
-            System.out.println("The programming language can't be null! Try again with different data!");
+            System.out.println("The programming language parameter can't be null! Try again with different data!");
         }
     }
 
-    public HashSet<Programmer> getTeamColleagues() {
-        return new HashSet<>(teamColleagues);
+    public void addTeamProgrammers(Programmer employee) {
+
+        if(employee != null) {
+            teamProgrammers.add(employee);
+        }
+    }
+
+    public void removeTeamProgrammers(Programmer employee) {
+        try{
+            programLanguages.remove(employee);
+        } catch (NoSuchElementException e) {
+            System.out.println("There is no such programmer colleague in the list like: " + employee);
+        } catch (NullPointerException e) {
+            System.out.println("The employee parameter can't be null! Try again with different data!");
+        }
+    }
+
+    public HashSet<Programmer> getTeamProgrammers() {
+        return new HashSet<>(teamProgrammers);
     }
 
     @Override
@@ -52,7 +69,7 @@ public class Programmer extends BaseEmployee{
         return super.toString() + " Programmer{ " +
                 "activeProject= '" + activeProject + '\'' +
                 ", programLanguages= " + programLanguages +
-                ", teamColleagues= " + teamColleagues +
+                ", teamProgrammers= " + teamProgrammers +
                 " }";
     }
 }
