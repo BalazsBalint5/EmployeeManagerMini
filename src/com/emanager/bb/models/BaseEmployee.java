@@ -57,14 +57,51 @@ public class BaseEmployee {
 
     @Override
     public String toString() {
-        return "BaseEmployee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", telephone='" + telephone + '\'' +
-                ", email='" + email + '\'' +
-                ", startedAt=" + startedAt +
-                ", salary=" + salary +
-                ", gender=" + gender + ", ";
+        return ("""
+                Employee:
+                    id: %d
+                    name: %s
+                    age: %d
+                    telephone: %s
+                    email: %s
+                    startedAt: %s
+                    salary: %.1f
+                    gender: %s
+                """.formatted(id,name,age,telephone,email,startedAt,salary,gender));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        BaseEmployee that = (BaseEmployee) o;
+
+        if (getAge() != that.getAge()) return false;
+        if (Double.compare(that.getSalary(), getSalary()) != 0) return false;
+        if (getId() != null ? !getId().equals(that.getId()) : that.getId() != null) return false;
+        if (getName() != null ? !getName().equals(that.getName()) : that.getName() != null) return false;
+        if (getTelephone() != null ? !getTelephone().equals(that.getTelephone()) : that.getTelephone() != null)
+            return false;
+        if (getEmail() != null ? !getEmail().equals(that.getEmail()) : that.getEmail() != null) return false;
+        if (getStartedAt() != null ? !getStartedAt().equals(that.getStartedAt()) : that.getStartedAt() != null)
+            return false;
+        return getGender() == that.getGender();
+    }
+
+    @Override
+    public int hashCode() {
+        int result;
+        long temp;
+        result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        result = 31 * result + getAge();
+        result = 31 * result + (getTelephone() != null ? getTelephone().hashCode() : 0);
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        result = 31 * result + (getStartedAt() != null ? getStartedAt().hashCode() : 0);
+        temp = Double.doubleToLongBits(getSalary());
+        result = 31 * result + (int) (temp ^ (temp >>> 32));
+        result = 31 * result + (getGender() != null ? getGender().hashCode() : 0);
+        return result;
     }
 }

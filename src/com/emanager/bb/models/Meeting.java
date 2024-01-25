@@ -1,6 +1,8 @@
 package com.emanager.bb.models;
 
-import java.time.LocalDate;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -8,10 +10,10 @@ import java.util.NoSuchElementException;
 public class Meeting {
 
     private String meetingDescription;
-    private LocalDate startTime;
+    private LocalDateTime startTime;
     private List<BaseEmployee> attendees;
 
-    public Meeting(String meetingDescription, LocalDate startTime) {
+    public Meeting(String meetingDescription, LocalDateTime startTime) {
         this.meetingDescription = meetingDescription;
         this.startTime = startTime;
         this.attendees = new ArrayList<>();
@@ -41,7 +43,7 @@ public class Meeting {
         return meetingDescription;
     }
 
-    public LocalDate getStartTime() {
+    public LocalDateTime getStartTime() {
         return startTime;
     }
 
@@ -51,10 +53,11 @@ public class Meeting {
 
     @Override
     public String toString() {
-        return "Meeting{" +
-                "meetingDescription='" + meetingDescription + '\'' +
-                ", startTime=" + startTime +
-                ", attendees=" + attendees +
-                '}';
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        String formattedTime = startTime.format(formatter);
+
+        return """
+                Meeting description: %s, Start time: %s, attendees:""".formatted(meetingDescription, formattedTime);
     }
 }

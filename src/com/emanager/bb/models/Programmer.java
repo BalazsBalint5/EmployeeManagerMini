@@ -6,6 +6,7 @@ import java.util.NoSuchElementException;
 
 public class Programmer extends BaseEmployee{
 
+
     private final String activeProject;
     private final HashSet<ProgramLanguages> programLanguages;
     private final HashSet<Programmer> teamProgrammers;
@@ -66,10 +67,34 @@ public class Programmer extends BaseEmployee{
 
     @Override
     public String toString() {
-        return super.toString() + " Programmer{ " +
-                "activeProject= '" + activeProject + '\'' +
-                ", programLanguages= " + programLanguages +
-                ", teamProgrammers= " + teamProgrammers +
-                " }";
+        return super.toString() + """
+                    Role: Programmer
+                    Program Languages:
+                    Team: programmers
+                """;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Programmer that = (Programmer) o;
+
+        if (getActiveProject() != null ? !getActiveProject().equals(that.getActiveProject()) : that.getActiveProject() != null)
+            return false;
+        if (getProgramLanguages() != null ? !getProgramLanguages().equals(that.getProgramLanguages()) : that.getProgramLanguages() != null)
+            return false;
+        return getTeamProgrammers() != null ? getTeamProgrammers().equals(that.getTeamProgrammers()) : that.getTeamProgrammers() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getActiveProject() != null ? getActiveProject().hashCode() : 0);
+        result = 31 * result + (getProgramLanguages() != null ? getProgramLanguages().hashCode() : 0);
+        result = 31 * result + (getTeamProgrammers() != null ? getTeamProgrammers().hashCode() : 0);
+        return result;
     }
 }

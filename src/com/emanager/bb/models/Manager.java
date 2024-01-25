@@ -64,9 +64,32 @@ public class Manager extends BaseEmployee{
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        Manager manager = (Manager) o;
+
+        if (getEmployees() != null ? !getEmployees().equals(manager.getEmployees()) : manager.getEmployees() != null)
+            return false;
+        return getFutureMeetings() != null ? getFutureMeetings().equals(manager.getFutureMeetings()) : manager.getFutureMeetings() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = super.hashCode();
+        result = 31 * result + (getEmployees() != null ? getEmployees().hashCode() : 0);
+        result = 31 * result + (getFutureMeetings() != null ? getFutureMeetings().hashCode() : 0);
+        return result;
+    }
+
     public String toString() {
-        return super.toString() + " Manager{" +
-                "employees=" + employees +
-                '}';
+        return super.toString() + """
+                    Role: Manager
+                    Employees:
+                    Meetings: %s
+                """.formatted(futureMeetings.toString());
     }
 }
